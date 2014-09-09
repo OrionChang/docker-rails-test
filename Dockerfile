@@ -21,6 +21,13 @@ ADD config/container/nginx-sites.conf /etc/nginx/sites-enabled/default
 ADD config/container/start-server.sh /usr/bin/start-server.sh
 RUN chmod +x /usr/bin/start-server.sh
 
+# Copy the Gemfile and Gemfile.lock into the image. 
+# Temporarily set the working directory to where they are. 
+WORKDIR /tmp 
+ADD ./Gemfile Gemfile
+ADD ./Gemfile.lock Gemfile.lock
+RUN /bin/bash -l -c "bundle install" 
+
 # Add rails project to project directory
 ADD ./ /rails
 
@@ -28,7 +35,7 @@ ADD ./ /rails
 WORKDIR /rails
 
 # bundle install
-RUN /bin/bash -l -c "bundle install"
+# RUN /bin/bash -l -c "bundle install"
 
 # Publish port 80
 EXPOSE 80
