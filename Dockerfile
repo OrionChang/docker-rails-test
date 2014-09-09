@@ -19,7 +19,7 @@ RUN /bin/bash -l -c "gem install bundler --no-ri --no-rdoc"
 # Add configuration files in repository to filesystem
 ADD config/container/nginx-sites.conf /etc/nginx/sites-enabled/default
 ADD config/container/start-server.sh /usr/bin/start-server.sh
-RUN chmod +x /usr/bin/start-server
+RUN chmod +x /usr/bin/start-server.sh
 
 # Add rails project to project directory
 ADD ./ /rails
